@@ -26,6 +26,7 @@ class HashTable:
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
+
         return hash(key)
 
     def _hash_djb2(self, key):
@@ -52,18 +53,15 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        node = self.storage[index]
-        pair = LinkedPair(key, value)
+        pair = LinkedPair(key, value)  # {key: value}
 
-        while node is not None and self.storage[index].key is not key:
-            want_to_insert = node
-            node = want_to_insert.next
+        self.storage[index] = pair
 
-        if node is not None:
-            node.value = value
-        else:
-            pair.next = self.storage[index]
-            self.storage[index] = pair
+        print(self.storage[index].key, ":", self.storage[index].value)
+        # for i in range(0, len(self.storage) - 1 ):
+        #     print(self.storage[i].key)
+
+        return self.storage[index]
 
     def remove(self, key):
         '''
@@ -73,7 +71,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+
+        if self.storage[index] == None:
+            print("ERROR")
+        else:
+            self.storage[index].value = None
 
     def retrieve(self, key):
         '''
@@ -83,7 +86,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+
+        if self.storage[index].value != None:
+            return self.storage[index].value
+        else:
+            return None
 
     def resize(self):
         '''
@@ -96,29 +104,29 @@ class HashTable:
 
 
 if __name__ == "__main__":
-    ht = HashTable(2)
+    ht = HashTable(3)
 
     ht.insert("line_1", "Tiny hash table")
     ht.insert("line_2", "Filled beyond capacity")
     ht.insert("line_3", "Linked list saves the day!")
 
-    print("")
+    # ht.remove("line_1")
 
-    # Test storing beyond capacity
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+    # # Test storing beyond capacity
+    # print(ht.retrieve("line_1")) 0
+    # print(ht.retrieve("line_2"))
+    # print(ht.retrieve("line_3"))
 
-    # Test resizing
-    old_capacity = len(ht.storage)
-    ht.resize()
-    new_capacity = len(ht.storage)
+    # # Test resizing
+    # old_capacity = len(ht.storage)
+    # ht.resize()
+    # new_capacity = len(ht.storage)
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # Test if data intact after resizing
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+    # # Test if data intact after resizing
+    # print(ht.retrieve("line_1"))
+    # print(ht.retrieve("line_2"))
+    # print(ht.retrieve("line_3"))
 
-    print("")
+    # print("")
