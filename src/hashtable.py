@@ -26,8 +26,9 @@ class HashTable:
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
-
-        return hash(key)
+        hashed = hash(key)
+        # print(hashed)
+        return hashed
 
     def _hash_djb2(self, key):
         '''
@@ -53,13 +54,12 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+        # print("Add", index)
         pair = LinkedPair(key, value)  # {key: value}
 
         self.storage[index] = pair
 
         print(self.storage[index].key, ":", self.storage[index].value)
-        # for i in range(0, len(self.storage) - 1 ):
-        #     print(self.storage[i].key)
 
         return self.storage[index]
 
@@ -72,11 +72,13 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+        # print("Remove", index)
 
         if self.storage[index] == None:
             print("ERROR")
         else:
             self.storage[index].value = None
+            # print(self.storage[index].key)
 
     def retrieve(self, key):
         '''
@@ -110,10 +112,10 @@ if __name__ == "__main__":
     ht.insert("line_2", "Filled beyond capacity")
     ht.insert("line_3", "Linked list saves the day!")
 
-    # ht.remove("line_1")
+    ht.remove("line_1")
 
     # # Test storing beyond capacity
-    # print(ht.retrieve("line_1")) 0
+    print(ht.retrieve("line_1"))
     # print(ht.retrieve("line_2"))
     # print(ht.retrieve("line_3"))
 
