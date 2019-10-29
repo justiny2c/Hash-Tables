@@ -60,7 +60,7 @@ class HashTable:
         pair = LinkedPair(key, value)  # new LinkedPair that gets added
 
         while node is not None and self.storage[index].key is not key:
-            # add node to next if node exists (or node.next is not None) and does not contain the same key
+            # updates node variable to check each pair in the node
             insert = node
             node = insert.next
 
